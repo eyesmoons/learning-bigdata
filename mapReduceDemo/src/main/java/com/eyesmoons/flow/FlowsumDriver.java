@@ -3,6 +3,8 @@ package com.eyesmoons.flow;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.compress.BZip2Codec;
+import org.apache.hadoop.io.compress.CompressionCodec;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -18,6 +20,8 @@ public class FlowsumDriver {
 
         // 1 获取配置信息，或者job对象实例
         Configuration configuration = new Configuration();
+        configuration.setBoolean("mapreduce.map.output.compress", true);
+        configuration.setClass("mapreduce.map.output.compress.codec", BZip2Codec.class, CompressionCodec.class);
         Job job = Job.getInstance(configuration);
 
         // 6 指定本程序的jar包所在的本地路径
@@ -38,6 +42,8 @@ public class FlowsumDriver {
         // 5 指定job的输入原始文件所在目录
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        FileOutputFormat.setCompressOutput(job, true);
+        FileOutputFormat.setOutputCompressorClass(job, BZip2Codec.class);
 
         // 7 将job中配置的相关参数，以及job所用的java类所在的jar包， 提交给yarn去运行
         boolean result = job.waitForCompletion(true);

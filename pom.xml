@@ -11,6 +11,7 @@
     <modules>
         <module>hdfsDemo</module>
         <module>mapReduceDemo</module>
+        <module>zookeeperDemo</module>
     </modules>
 
     <properties>
