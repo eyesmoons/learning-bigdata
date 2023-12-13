@@ -24,7 +24,7 @@ public class CustomProducerWithCallback {
         for (int i = 0; i < 100; i++) {
             producer.send(new ProducerRecord<>("test", Integer.toString(i), Integer.toString(i)), new Callback() {
 
-                //回调函数，该方法会在Producer收到ack时调用，为异步调用
+                // 回调函数，该方法会在Producer收到ack时调用，为异步调用
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception e) {
                     if (e == null) {

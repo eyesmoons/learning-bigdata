@@ -13,6 +13,7 @@
         <module>mapReduceDemo</module>
         <module>zookeeperDemo</module>
         <module>kafkaDemo</module>
+        <module>hbaseDemo</module>
     </modules>
 
     <properties>
